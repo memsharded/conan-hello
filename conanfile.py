@@ -3,7 +3,7 @@ from conans import ConanFile, CMake
 class HelloConan(ConanFile):
     name = "Hello"
     version = "0.1"
-    license="MIT"
+    license = "MIT"
     settings = "os", "compiler", "build_type", "arch"
     url = "https://github.com/memsharded/conan-hello.git"
 
@@ -21,4 +21,8 @@ class HelloConan(ConanFile):
         self.copy("*.a", dst="lib", src="hello/lib")
 
     def package_info(self):
+        self.cpp_info.cxxflags = [
+            "-static-libgcc",
+            "-static-libstdc++"
+        ]
         self.cpp_info.libs = ["hello"]
